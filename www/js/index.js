@@ -26,4 +26,50 @@ function onDeviceReady() {
 
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     document.getElementById('deviceready').classList.add('ready');
+    document.getElementById('camera').onclick = getPicture; 
 }
+
+function getPicture(event){
+    var cameraOptions = {
+        quality:25,
+        destinationType: Camera.DestinationType.DATA_URL
+    };
+    navigator.camera.getPicture(successPicture,failPicture,cameraOptions);
+}
+
+function successPicture(imageData){
+    var image = document.getElementById('myImage');
+    image.src = "data:image/jpeg;base64,"+imageData;
+}
+function failPicture(){
+    alert("Algo no es vainoso")
+}
+
+// function(){
+    // navigator.camera.getPicture(onSuccess, onFail, { quality: 25,
+    //     destinationType: Camera.DestinationType.DATA_URL
+    // });
+//     var cameraOptions = {
+//         sourceType: Camera.PictureSourceType.CAMERA,
+//         destinationType: Camera.DestinationType.DATA_URL,
+//         saveToPhotoAlbum: true,
+//         quality:25,
+//         allowEdit: false
+//     };
+
+//     navigator.camera.getPicture(function(result) {
+//         console.log(result);
+//         document.getElementById('myImage').src = result;
+//     }, function(error) {
+//         console.log(error);
+//     }, cameraOptions);
+    
+// }
+// function onSuccess(imageData) {
+//     var image = document.getElementById('myImage');
+//     image.src = "data:image/jpeg;base64," + imageData;
+// }
+
+// function onFail(message) {
+//     alert('Failed because: ' + message);
+// }
